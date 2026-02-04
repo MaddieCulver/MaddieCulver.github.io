@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Very Important Question</title>
+
+  <style>
+    body {
+      height: 100vh;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      font-family: Arial, sans-serif;
+      background: #ffe6f0;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 30px;
+      padding: 0 15px;
+    }
+
+    .container {
+      position: relative;
+      width: 90vw;
+      max-width: 350px;
+      height: 200px;
+    }
+
+    button {
+      position: absolute;
+      padding: 14px 26px;
+      font-size: 1.1rem;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      touch-action: manipulation;
+      transition: all 0.2s ease;
+    }
+
+    #yes {
+      background-color: #4CAF50;
+      color: white;
+      left: 20px;
+      bottom: 20px;
+    }
+
+    #no {
+      background-color: #f44336;
+      color: white;
+      right: 20px;
+      bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Am I the best sister ever? 🤨</h1>
+
+  <div class="container" id="box">
+    <button id="yes">Yes</button>
+    <button id="no">No</button>
+  </div>
+
+  <script>
+    const noBtn = document.getElementById("no");
+    const box = document.getElementById("box");
+    let shrinkFactor = 0.9; // shrinks 10% each time
+
+    function moveAndShrinkNo() {
+      // Vibrate if supported
+      if (navigator.vibrate) {
+        navigator.vibrate(100);
+      }
+
+      // Shrink
+      const currentWidth = noBtn.offsetWidth;
+      const currentHeight = noBtn.offsetHeight;
+      noBtn.style.width = currentWidth * shrinkFactor + "px";
+      noBtn.style.height = currentHeight * shrinkFactor + "px";
+
+      // Random new position
+      const maxX = box.clientWidth - noBtn.offsetWidth;
+      const maxY = box.clientHeight - noBtn.offsetHeight;
+      const x = Math.random() * maxX;
+      const y = Math.random() * maxY;
+      noBtn.style.left = x + "px";
+      noBtn.style.top = y + "px";
+    }
+
+    // Desktop hover
+    noBtn.addEventListener("mouseover", moveAndShrinkNo);
+
+    // Mobile touch
+    noBtn.addEventListener("touchstart", (e) => {
+      e.preventDefault();
+      moveAndShrinkNo();
+    });
+
+    // Yes button
+    document.getElementById("yes").addEventListener("click", () => {
+      document.body.innerHTML = "<h1>u just got rick rolled 😈</h1>";
+      setTimeout(() => {
+        window.location.href = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
+      }, 1500);
+    });
+  </script>
+
+</body>
+</html>
