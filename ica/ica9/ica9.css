@@ -1,0 +1,73 @@
+/* HEADER */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #333;
+  color: #fff;
+  padding: 2em 2em;  /* more vertical space */
+}
+
+/* TITLE */
+header .title {
+  font-size: 1.8em;
+  font-style: italic;
+  font-weight: bold;
+}
+
+/* LINKS */
+nav.links {
+  display: flex;
+  gap: 1.5em;  /* more spacing between links */
+}
+
+nav.links a {
+  color: #fff;
+  text-decoration: none;
+  padding: 0.5em 1.2em;  /* slightly bigger clickable area */
+}
+
+/* MAIN */
+main {
+  display: flex;
+  gap: 2em;  /* horizontal gap between article + sidebar */
+  padding: 2em;
+  align-items: stretch;
+}
+
+/* ARTICLE */
+article h1 {
+  margin-bottom: 1em;  /* spacing below main heading */
+}
+
+article p {
+  margin-bottom: 1.5em; /* spacing between paragraphs */
+}
+
+/* CARDS */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5em;  /* spacing between cards */
+}
+
+.cards li {
+  border: 5px solid #000;
+  padding-bottom: 1em;
+}
+
+.cards h2 {
+  padding: 0.7em 1em;
+}
+
+.cards .inner {
+  padding: 0.7em 1em;
+}
+
+/* SIDEBAR */
+aside.sidebar p {
+  background-color: #333;
+  color: #fff;
+  padding: 2em;  /* extra space inside box */
+  flex-grow: 1;
+}
