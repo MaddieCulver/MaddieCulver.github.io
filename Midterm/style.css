@@ -1,0 +1,206 @@
+/* ========== GLOBAL ========== */
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: #FFF8F5; /* cream */
+    color: #3F4F3C; /* dark sage */
+}
+
+a {
+    text-decoration: none;
+    color: #3F4F3C;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 15px;
+}
+
+/* ========== NAVBAR ========== */
+nav {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    background: #A8BBA3; /* sage green */
+    padding: 15px 0;
+}
+
+nav a {
+    font-weight: bold;
+    padding: 8px 12px;
+    border-radius: 8px;
+    transition: background 0.3s;
+}
+
+nav a:hover {
+    background: #F7D6E0; /* light pink */
+}
+
+/* ========== HEADER ========== */
+header {
+    text-align: center;
+    padding: 50px 20px 20px 20px;
+}
+
+header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 3rem;
+    margin-bottom: 10px;
+}
+
+header p {
+    font-size: 1.2rem;
+}
+
+/* ========== SECTIONS ========== */
+section {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+section h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #A8BBA3;
+}
+
+section p {
+    line-height: 1.6;
+}
+/* Highlight focus for accessibility */
+a:focus, .btn:focus, .card:focus {
+    outline: 3px solid #F7D6E0; /* light pink outline */
+    outline-offset: 4px;
+    box-shadow: 0 0 10px #F7D6E0;
+}
+/* ========== BUTTONS ========== */
+button, .btn {
+    display: inline-block;
+    background: #F7D6E0;
+    color: #3F4F3C;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 12px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+button:hover, .btn:hover {
+    transform: scale(1.05);
+}
+
+/* ========== BUBBLES / CARDS ========== */
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+.card {
+    background: #A8BBA3;
+    color: #FFF8F5;
+    padding: 20px;
+    border-radius: 20px;
+    min-width: 150px;
+    text-align: center;
+    font-weight: bold;
+}
+
+/* ========== FOOTER ========== */
+footer {
+    text-align: center;
+    padding: 20px;
+    background: #A8BBA3;
+    color: #FFF8F5;
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 600px) {
+    nav {
+        flex-direction: column;
+    }
+    header h1 {
+        font-size: 2.2rem;
+    }
+    section {
+        padding: 30px 15px;
+    }
+    .card-container {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+/* Base section positioning */
+section {
+    position: relative;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 60px 20px;
+}
+
+
+
+
+/* Section base */
+section {
+    position: relative;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 60px 20px;
+}
+
+/* Left side circles */
+.section-shape-left {
+    position: absolute;
+    left: -50px;      /* farther from text */
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    z-index: -1;
+}
+
+/* Right side circles */
+.section-shape-right {
+    position: absolute;
+    right: -50px;     /* farther from text */
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    z-index: -1;
+}
+
+/* Alternating colors for left side */
+.section-shape-left:nth-child(odd) { background: #A8BBA3; } /* sage green */
+.section-shape-left:nth-child(even) { background: #F7D6E0; } /* light pink */
+
+/* Alternating colors for right side */
+.section-shape-right:nth-child(odd) { background: #F7D6E0; } /* light pink */
+.section-shape-right:nth-child(even) { background: #A8BBA3; } /* sage green */
+
+/* Manually set top positions for each circle */
+.section-shape-left.l1 { top: 0px; }
+.section-shape-left.l2 { top: 120px; }
+.section-shape-left.l3 { top: 240px; }
+.section-shape-left.l4 { top: 360px; }
+.section-shape-left.l5 { top: 480px; }
+
+.section-shape-right.r1 { top: 0px; }
+.section-shape-right.r2 { top: 120px; }
+.section-shape-right.r3 { top: 240px; }
+.section-shape-right.r4 { top: 360px; }
+.section-shape-right.r5 { top: 480px; }
+
+/* Optional subtle floating animation */
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+.section-shape-left, .section-shape-right {
+    animation: float 6s ease-in-out infinite;
+}
