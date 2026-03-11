@@ -1,4 +1,4 @@
-/* ========== GLOBAL ========== */
+/* ================= GLOBAL ================= */
 body {
     margin: 0;
     font-family: 'Poppins', sans-serif;
@@ -17,7 +17,7 @@ img {
     border-radius: 15px;
 }
 
-/* ========== NAVBAR ========== */
+/* ================= NAVBAR ================= */
 nav {
     display: flex;
     justify-content: center;
@@ -37,7 +37,7 @@ nav a:hover {
     background: #F7D6E0; /* light pink */
 }
 
-/* ========== HEADER ========== */
+/* ================= HEADER ================= */
 header {
     text-align: center;
     padding: 50px 20px 20px 20px;
@@ -47,17 +47,20 @@ header h1 {
     font-family: 'Playfair Display', serif;
     font-size: 3rem;
     margin-bottom: 10px;
+    font-weight: 700; /* lock header weight */
 }
 
 header p {
-    font-size: 1.2rem;
+    font-size: 1.3rem; /* slightly bigger */
+    line-height: 1.7;
 }
 
-/* ========== SECTIONS ========== */
+/* ================= SECTIONS ================= */
 section {
+    position: relative;
     max-width: 1000px;
     margin: 0 auto;
-    padding: 40px 20px;
+    padding: 60px 20px;
 }
 
 section h2 {
@@ -65,18 +68,22 @@ section h2 {
     font-size: 2rem;
     margin-bottom: 20px;
     color: #A8BBA3;
+    font-weight: 700; /* lock header weight */
 }
 
 section p {
-    line-height: 1.6;
+    font-size: 1.3rem;
+    line-height: 1.7;
 }
+
 /* Highlight focus for accessibility */
 a:focus, .btn:focus, .card:focus {
     outline: 3px solid #F7D6E0; /* light pink outline */
     outline-offset: 4px;
     box-shadow: 0 0 10px #F7D6E0;
 }
-/* ========== BUTTONS ========== */
+
+/* ================= BUTTONS ================= */
 button, .btn {
     display: inline-block;
     background: #F7D6E0;
@@ -93,7 +100,7 @@ button:hover, .btn:hover {
     transform: scale(1.05);
 }
 
-/* ========== BUBBLES / CARDS ========== */
+/* ================= CARDS ================= */
 .card-container {
     display: flex;
     flex-wrap: wrap;
@@ -109,9 +116,10 @@ button:hover, .btn:hover {
     min-width: 150px;
     text-align: center;
     font-weight: bold;
+    line-height: 1.5;
 }
 
-/* ========== FOOTER ========== */
+/* ================= FOOTER ================= */
 footer {
     text-align: center;
     padding: 20px;
@@ -119,88 +127,147 @@ footer {
     color: #FFF8F5;
 }
 
-/* ========== RESPONSIVE ========== */
-@media (max-width: 600px) {
-    nav {
-        flex-direction: column;
-    }
-    header h1 {
-        font-size: 2.2rem;
-    }
-    section {
-        padding: 30px 15px;
-    }
-    .card-container {
-        flex-direction: column;
-        align-items: center;
-    }
-}
-/* Base section positioning */
-section {
-    position: relative;
-    max-width: 1000px;
-    margin: 0 auto;
-    padding: 60px 20px;
-}
-
-
-
-
-/* Section base */
-section {
-    position: relative;
-    max-width: 1000px;
-    margin: 0 auto;
-    padding: 60px 20px;
-}
-
+/* ================= FLOATING DOTS ================= */
 /* Left side circles */
 .section-shape-left {
     position: absolute;
-    left: -50px;      /* farther from text */
+    left: -50px;
     width: 30px;
     height: 30px;
     border-radius: 50%;
     z-index: -1;
+    animation: float 6s ease-in-out infinite;
 }
 
 /* Right side circles */
 .section-shape-right {
     position: absolute;
-    right: -50px;     /* farther from text */
+    right: -50px;
     width: 30px;
     height: 30px;
     border-radius: 50%;
     z-index: -1;
+    animation: float 6s ease-in-out infinite;
 }
 
-/* Alternating colors for left side */
-.section-shape-left:nth-child(odd) { background: #A8BBA3; } /* sage green */
-.section-shape-left:nth-child(even) { background: #F7D6E0; } /* light pink */
+/* Alternating colors */
+.section-shape-left:nth-child(odd) { background: #A8BBA3; }
+.section-shape-left:nth-child(even) { background: #F7D6E0; }
+.section-shape-right:nth-child(odd) { background: #F7D6E0; }
+.section-shape-right:nth-child(even) { background: #A8BBA3; }
 
-/* Alternating colors for right side */
-.section-shape-right:nth-child(odd) { background: #F7D6E0; } /* light pink */
-.section-shape-right:nth-child(even) { background: #A8BBA3; } /* sage green */
-
-/* Manually set top positions for each circle */
+/* Manual top positions */
 .section-shape-left.l1 { top: 0px; }
 .section-shape-left.l2 { top: 120px; }
 .section-shape-left.l3 { top: 240px; }
 .section-shape-left.l4 { top: 360px; }
 .section-shape-left.l5 { top: 480px; }
-
 .section-shape-right.r1 { top: 0px; }
 .section-shape-right.r2 { top: 120px; }
 .section-shape-right.r3 { top: 240px; }
 .section-shape-right.r4 { top: 360px; }
 .section-shape-right.r5 { top: 480px; }
 
-/* Optional subtle floating animation */
+/* Floating animation */
 @keyframes float {
     0%, 100% { transform: translateY(0); }
     50% { transform: translateY(-10px); }
 }
 
-.section-shape-left, .section-shape-right {
-    animation: float 6s ease-in-out infinite;
+/* ================= RESPONSIVE ================= */
+@media (max-width: 600px) {
+    nav {
+        flex-direction: column;
+    }
+
+    header h1 {
+        font-size: 2.2rem;
+        font-weight: 700;
+    }
+
+    section h2 {
+        font-size: 1.8rem;
+        font-weight: 700;
+    }
+
+    section p {
+        font-size: 1.4rem;
+        line-height: 1.8;
+    }
+
+    .card-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .btn {
+        padding: 12px 24px;
+        font-size: 1.1rem;
+    }
+
+    /* Bring floating dots into view on mobile */
+    .section-shape-left, .section-shape-right {
+        left: 10px !important;
+        right: 10px !important;
+        width: 20px;
+        height: 20px;
+    }
+
+    .section-shape-left.l1, .section-shape-right.r1 { top: 10px; }
+    .section-shape-left.l2, .section-shape-right.r2 { top: 100px; }
+    .section-shape-left.l3, .section-shape-right.r3 { top: 190px; }
+    .section-shape-left.l4, .section-shape-right.r4 { top: 280px; }
+    .section-shape-left.l5, .section-shape-right.r5 { top: 370px; }
+}
+/* Mobile dot fix */
+@media (max-width: 600px) {
+    .dots-left, .dots-right {
+        position: relative;
+        width: 100%;
+        display: flex;
+        justify-content: space-between; /* spread left & right dots horizontally */
+        margin-bottom: 20px; /* some spacing above content */
+    }
+
+    .section-shape-left, .section-shape-right {
+        position: relative;  /* make them flow with wrapper */
+        left: 0 !important;
+        right: 0 !important;
+        top: 0 !important;
+        width: 20px;
+        height: 20px;
+        margin: 0 5px;
+    }
+
+    /* Remove floating animation on mobile if you want */
+    .section-shape-left, .section-shape-right {
+        animation: none;
+    }
+}
+@media (max-width: 600px) {
+    .section-shape-left,
+    .section-shape-right {
+        position: relative;  /* now they flow with content */
+        left: 0 !important;
+        right: 0 !important;
+        top: 0 !important;
+        width: 20px;
+        height: 20px;
+        margin: 10px auto;  /* center them horizontally */
+        animation: none;    /* optional, stops float so they don’t overlap text */
+    }
+
+    /* stack them vertically on mobile */
+    .section-shape-left.l1,
+    .section-shape-left.l2,
+    .section-shape-left.l3,
+    .section-shape-left.l4,
+    .section-shape-left.l5,
+    .section-shape-right.r1,
+    .section-shape-right.r2,
+    .section-shape-right.r3,
+    .section-shape-right.r4,
+    .section-shape-right.r5 {
+        display: block;
+    }
 }
