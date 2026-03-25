@@ -51,7 +51,7 @@ header h1 {
 }
 
 header p {
-    font-size: 1.3rem; /* slightly bigger */
+    font-size: 1.3rem;
     line-height: 1.7;
 }
 
@@ -128,47 +128,30 @@ footer {
 }
 
 /* ================= FLOATING DOTS ================= */
-/* Left side circles */
-.section-shape-left {
-    position: absolute;
-    left: -50px;
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    z-index: -1;
-    animation: float 6s ease-in-out infinite;
-}
-
-/* Right side circles */
+.section-shape-left,
 .section-shape-right {
-    position: absolute;
-    right: -50px;
     width: 30px;
     height: 30px;
     border-radius: 50%;
     z-index: -1;
     animation: float 6s ease-in-out infinite;
+    position: absolute;
 }
 
-/* Alternating colors */
-.section-shape-left:nth-child(odd) { background: #A8BBA3; }
-.section-shape-left:nth-child(even) { background: #F7D6E0; }
-.section-shape-right:nth-child(odd) { background: #F7D6E0; }
-.section-shape-right:nth-child(even) { background: #A8BBA3; }
+/* Left dots colors */
+.section-shape-left.l1 { top: 0; left: -50px; background: #A8BBA3; }
+.section-shape-left.l2 { top: 120px; left: -50px; background: #F7D6E0; }
+.section-shape-left.l3 { top: 240px; left: -50px; background: #A8BBA3; }
+.section-shape-left.l4 { top: 360px; left: -50px; background: #F7D6E0; }
+.section-shape-left.l5 { top: 480px; left: -50px; background: #A8BBA3; }
 
-/* Manual top positions */
-.section-shape-left.l1 { top: 0px; }
-.section-shape-left.l2 { top: 120px; }
-.section-shape-left.l3 { top: 240px; }
-.section-shape-left.l4 { top: 360px; }
-.section-shape-left.l5 { top: 480px; }
-.section-shape-right.r1 { top: 0px; }
-.section-shape-right.r2 { top: 120px; }
-.section-shape-right.r3 { top: 240px; }
-.section-shape-right.r4 { top: 360px; }
-.section-shape-right.r5 { top: 480px; }
+/* Right dots colors */
+.section-shape-right.r1 { top: 0; right: -50px; background: #F7D6E0; }
+.section-shape-right.r2 { top: 120px; right: -50px; background: #A8BBA3; }
+.section-shape-right.r3 { top: 240px; right: -50px; background: #F7D6E0; }
+.section-shape-right.r4 { top: 360px; right: -50px; background: #A8BBA3; }
+.section-shape-right.r5 { top: 480px; right: -50px; background: #F7D6E0; }
 
-/* Floating animation */
 @keyframes float {
     0%, 100% { transform: translateY(0); }
     50% { transform: translateY(-10px); }
@@ -176,98 +159,33 @@ footer {
 
 /* ================= RESPONSIVE ================= */
 @media (max-width: 600px) {
-    nav {
-        flex-direction: column;
-    }
+    nav { flex-direction: column; }
+    header h1 { font-size: 2.2rem; }
+    section h2 { font-size: 1.8rem; }
+    section p { font-size: 1.4rem; line-height: 1.8; }
+    .card-container { flex-direction: column; align-items: center; }
+    .btn { padding: 12px 24px; font-size: 1.1rem; }
 
-    header h1 {
-        font-size: 2.2rem;
-        font-weight: 700;
-    }
-
-    section h2 {
-        font-size: 1.8rem;
-        font-weight: 700;
-    }
-
-    section p {
-        font-size: 1.4rem;
-        line-height: 1.8;
-    }
-
-    .card-container {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .btn {
-        padding: 12px 24px;
-        font-size: 1.1rem;
-    }
-
-    /* Bring floating dots into view on mobile */
-    .section-shape-left, .section-shape-right {
-        left: 10px !important;
-        right: 10px !important;
-        width: 20px;
-        height: 20px;
-    }
-
-    .section-shape-left.l1, .section-shape-right.r1 { top: 10px; }
-    .section-shape-left.l2, .section-shape-right.r2 { top: 100px; }
-    .section-shape-left.l3, .section-shape-right.r3 { top: 190px; }
-    .section-shape-left.l4, .section-shape-right.r4 { top: 280px; }
-    .section-shape-left.l5, .section-shape-right.r5 { top: 370px; }
-}
-/* Mobile dot fix */
-@media (max-width: 600px) {
-    .dots-left, .dots-right {
-        position: relative;
-        width: 100%;
+    /* ================= MOBILE DOTS FIX ================= */
+    .dots-container {
         display: flex;
-        justify-content: space-between; /* spread left & right dots horizontally */
-        margin-bottom: 20px; /* some spacing above content */
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+        margin-top: 20px;
     }
 
-    .section-shape-left, .section-shape-right {
-        position: relative;  /* make them flow with wrapper */
-        left: 0 !important;
-        right: 0 !important;
-        top: 0 !important;
-        width: 20px;
-        height: 20px;
-        margin: 0 5px;
-    }
-
-    /* Remove floating animation on mobile if you want */
-    .section-shape-left, .section-shape-right {
-        animation: none;
-    }
-}
-@media (max-width: 600px) {
     .section-shape-left,
     .section-shape-right {
-        position: relative;  /* now they flow with content */
-        left: 0 !important;
-        right: 0 !important;
-        top: 0 !important;
-        width: 20px;
-        height: 20px;
-        margin: 10px auto;  /* center them horizontally */
-        animation: none;    /* optional, stops float so they don’t overlap text */
-    }
-
-    /* stack them vertically on mobile */
-    .section-shape-left.l1,
-    .section-shape-left.l2,
-    .section-shape-left.l3,
-    .section-shape-left.l4,
-    .section-shape-left.l5,
-    .section-shape-right.r1,
-    .section-shape-right.r2,
-    .section-shape-right.r3,
-    .section-shape-right.r4,
-    .section-shape-right.r5 {
-        display: block;
+        position: relative !important; /* flow naturally */
+        top: auto !important;
+        left: auto !important;
+        right: auto !important;
+        width: 20px !important;
+        height: 20px !important;
+        margin: 5px;
+        animation: none !important;
+        z-index: 0 !important;
+        display: block !important;
     }
 }
