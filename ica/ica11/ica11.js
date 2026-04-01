@@ -4,7 +4,7 @@ const story = document.querySelector(".story");
 
 // Updated arrays
 const characters = ["Petunia Truffles", "Lebron James", "Helen Keller"];
-const places = ["a spacecraft", "the magic school bus", " Wheres Waldo's fridge"];
+const places = ["a healthy McDonald's", "the magic school bus", " Wheres Waldo's fridge"];
 const events = [
   "sang the national anthem while juggling pineapples shaped like spongebob",
   "turned into an angry Karen with a bob",
