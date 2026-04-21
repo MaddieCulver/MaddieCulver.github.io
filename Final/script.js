@@ -3,24 +3,46 @@ const ctx = canvas.getContext("2d");
 
 const rows = 20;
 const cols = 10;
+const size = 30;
 
-const grid = Array.from({ length: rows }, () => Array(cols).fill(0));
+let grid = Array.from({ length: rows }, () => Array(cols).fill(0));
 
 let volume = 0;
 let gameOver = false;
 
 const volumeDisplay = document.getElementById("volumeDisplay");
 
+// ---------------- SHAPES ----------------
+
+const shapes = [
+  [[1,1,1,1]],
+
+  [[1,1],[1,1]],
+
+  [[0,1,0],[1,1,1]],
+
+  [[1,0,0],[1,1,1]],
+
+  [[0,0,1],[1,1,1]],
+
+  [[0,1,1],[1,1,0]],
+
+  [[1,1,0],[0,1,1]]
+];
+
 // ---------------- PIECE ----------------
 
-let piece = {
-  x: 4,
-  y: 0,
-  shape: [
-    [1, 1],
-    [1, 1]
-  ]
-};
+let piece;
+
+function spawnPiece() {
+  const shape = shapes[Math.floor(Math.random() * shapes.length)];
+
+  piece = {
+    x: Math.floor(cols / 2) - 1,
+    y: 0,
+    shape: shape
+  };
+}
 
 // ---------------- DRAW ----------------
 
@@ -31,7 +53,7 @@ function drawGrid() {
     for (let c = 0; c < cols; c++) {
       if (grid[r][c]) {
         ctx.fillStyle = "lime";
-        ctx.fillRect(c * 30, r * 30, 28, 28);
+        ctx.fillRect(c * size, r * size, size - 2, size - 2);
       }
     }
   }
@@ -43,7 +65,7 @@ function drawPiece() {
   piece.shape.forEach((row, r) => {
     row.forEach((val, c) => {
       if (val) {
-        ctx.fillRect((piece.x + c) * 30, (piece.y + r) * 30, 28, 28);
+        ctx.fillRect((piece.x + c) * size, (piece.y + r) * size, size - 2, size - 2);
       }
     });
   });
@@ -68,7 +90,7 @@ function collision() {
         newX < 0 ||
         newX >= cols ||
         newY >= rows ||
-        grid[newY][newX]
+        (grid[newY] && grid[newY][newX])
       );
     })
   );
@@ -91,17 +113,7 @@ function merge() {
   checkGameOver();
 }
 
-// ---------------- SPAWN ----------------
-
-function spawnPiece() {
-  piece = {
-    x: Math.floor(Math.random() * (cols - 2)),
-    y: 0,
-    shape: [[1, 1], [1, 1]]
-  };
-}
-
-// ---------------- ROW CLEAR (EVIL MODE) ----------------
+// ---------------- ROW CLEAR ----------------
 
 function clearRows() {
   let cleared = 0;
@@ -117,7 +129,6 @@ function clearRows() {
 
   if (cleared > 0) {
     volume = Math.max(0, volume - cleared * 10);
-    volumeDisplay.innerText = `Volume: ${volume}%`;
   }
 }
 
@@ -140,12 +151,25 @@ function checkGameOver() {
   }
 }
 
+// ---------------- SPEED ----------------
+
+function getSpeed() {
+  let highest = grid.findIndex(row => row.some(cell => cell === 1));
+
+  if (highest === -1) return 300;
+
+  let height = rows - highest;
+  return Math.max(100, 300 - height * 10); // safer speed
+}
+
 // ---------------- DROP ----------------
+
+let isSoftDropping = false;
 
 function drop() {
   if (gameOver) return;
 
-  piece.y++;
+  piece.y += isSoftDropping ? 2 : 1;
 
   if (collision()) {
     piece.y--;
@@ -160,30 +184,29 @@ function drop() {
 document.addEventListener("keydown", (e) => {
   if (gameOver) return;
 
-  setTimeout(() => {
-    if (e.key === "ArrowLeft") piece.x--;
-    if (e.key === "ArrowRight") piece.x++;
-    if (e.key === "ArrowDown") piece.y++;
+  if (e.key === "ArrowLeft") piece.x--;
+  if (e.key === "ArrowRight") piece.x++;
+  if (e.key === "ArrowDown") isSoftDropping = true;
 
-    if (collision()) {
-      if (e.key === "ArrowLeft") piece.x++;
-      if (e.key === "ArrowRight") piece.x--;
-      if (e.key === "ArrowDown") piece.y--;
-    }
+  if (collision()) {
+    if (e.key === "ArrowLeft") piece.x++;
+    if (e.key === "ArrowRight") piece.x--;
+  }
 
-    draw();
-  }, 150);
+  draw();
+});
+
+document.addEventListener("keyup", (e) => {
+  if (e.key === "ArrowDown") isSoftDropping = false;
 });
 
 // ---------------- RESET ----------------
 
 function resetGame() {
-  for (let r = 0; r < rows; r++) {
-    grid[r].fill(0);
-  }
-
+  grid = Array.from({ length: rows }, () => Array(cols).fill(0));
   volume = 0;
   gameOver = false;
+
   volumeDisplay.innerText = "Volume: 0%";
 
   spawnPiece();
@@ -195,14 +218,31 @@ function resetGame() {
 document.getElementById("submitBtn").onclick = () => {
   if (gameOver) {
     resetGame();
+    startGameLoop();
   } else {
     alert("Current Volume: " + volume + "%");
   }
 };
 
-// ---------------- LOOP ----------------
+// ---------------- LOOP (FIXED) ----------------
 
-setInterval(drop, 80);
+let gameInterval;
 
-// start
+function startGameLoop() {
+  clearInterval(gameInterval);
+
+  gameInterval = setInterval(() => {
+    drop();
+
+    // update speed dynamically
+    clearInterval(gameInterval);
+    startGameLoop();
+
+  }, getSpeed());
+}
+
+// ---------------- START ----------------
+
+spawnPiece();
 draw();
+startGameLoop();
